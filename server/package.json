@@ -1,0 +1,8 @@
+{
+  "name": "movie-server",
+  "type": "module",
+  "dependencies": {
+    "@apollo/server": "^4.9.0",
+    "graphql": "^16.8.1"
+  }
+}

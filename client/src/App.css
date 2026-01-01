@@ -1,0 +1,288 @@
+:root {
+  /* --- THEME VARIABLES --- */
+  --bg-dark: #050505;
+  --card-dark: #121212;
+  
+  /* Purple Gradient (Buttons & Progress) */
+  --primary-gradient: linear-gradient(to right, #8E2DE2, #4A00E0);
+  
+  /* Neon Cyan (Watched Status & Numbers) - NO GREEN */
+  --success-color: #00f2fe; 
+  --success-glow: rgba(0, 242, 254, 0.4);
+
+  /* Danger/Delete - Dark Grey */
+  --danger-bg: #2a2a2a;
+  --danger-text: #888;
+}
+
+/* --- GLOBAL RESET --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-dark);
+  color: white;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* GLOWING ORB 1 (Purple) */
+body::before {
+  content: "";
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(142, 45, 226, 0.3) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(80px);
+  z-index: -1;
+  animation: float1 10s ease-in-out infinite alternate;
+}
+
+/* GLOWING ORB 2 (Cyan/Blue) */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: -10%;
+  right: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(74, 0, 224, 0.3) 0%, rgba(0,0,0,0) 70%);
+  filter: blur(80px);
+  z-index: -1;
+  animation: float2 12s ease-in-out infinite alternate;
+}
+
+@keyframes float1 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+@keyframes float2 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50px, -50px); }
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* --- HEADER & DASHBOARD --- */
+.header-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+  /* Purple Title */
+  background: linear-gradient(to right, #fff, #a18cd1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(142, 45, 226, 0.3);
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  border-radius: 12px;
+  min-width: 100px;
+  backdrop-filter: blur(10px);
+}
+
+.stat-box.wide { min-width: 180px; }
+
+.label {
+  display: block;
+  font-size: 0.75rem;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: white; /* Default color */
+}
+
+/* --- FIX FOR GREEN NUMBER --- */
+/* Yeh code 'Watched' wale box ke number ko Blue karega */
+.stats-container .stat-box:nth-child(2) .value {
+  color: var(--success-color) !important;
+  text-shadow: 0 0 10px var(--success-glow);
+}
+/* ---------------------------- */
+
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #2a2a2a;
+  border-radius: 3px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+.progress-bar .fill {
+  height: 100%;
+  background: var(--primary-gradient); /* Purple fill */
+  box-shadow: 0 0 10px rgba(142, 45, 226, 0.5);
+  transition: width 0.5s ease;
+}
+
+/* --- INPUT BAR --- */
+.input-bar {
+  display: flex;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.input-bar input {
+  background: #181818;
+  border: 1px solid #333;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 10px;
+  outline: none;
+  font-size: 1rem;
+  flex: 1;
+  transition: border 0.3s;
+}
+
+.input-bar .year-input {
+  flex: 0 0 100px;
+}
+
+.input-bar input:focus { 
+  border-color: #8E2DE2; 
+  box-shadow: 0 0 10px rgba(142, 45, 226, 0.2);
+}
+
+.input-bar button {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 0 30px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(74, 0, 224, 0.4);
+}
+
+.input-bar button:hover { 
+  transform: scale(1.05); 
+}
+
+/* --- GRID & CARDS --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(160deg, #1e1e1e, #0a0a0a);
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card-content { margin-bottom: 20px; }
+.card h3 { font-size: 1.3rem; margin-bottom: 5px; color: #fff; }
+.card p { color: #888; }
+
+/* Actions */
+.actions { display: flex; gap: 10px; }
+
+.actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+/* Unwatch Button (Cyan) */
+.toggle-btn { 
+  background: rgba(0, 242, 254, 0.1); 
+  color: var(--success-color); 
+  border: 1px solid rgba(0, 242, 254, 0.2);
+}
+.toggle-btn:hover { 
+  background: var(--success-color); 
+  color: black; 
+}
+
+/* Delete Button (Dark Grey) */
+.delete-btn {
+  flex: 0 0 auto;
+  background: var(--danger-bg);
+  color: var(--danger-text);
+  padding: 10px 14px;
+}
+.delete-btn:hover { 
+  background: #444; 
+  color: #fff; 
+}
+
+/* --- WATCHED STATE --- */
+.card.watched {
+  border-color: var(--success-color); /* Green -> Blue */
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.1);
+}
+
+.card.watched h3 {
+  text-decoration: line-through;
+  color: #666;
+}
+
+/* Checkmark Color Fix */
+.card.watched::before {
+  content: "✔";
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: var(--success-color) !important; /* Green -> Blue Forcefully */
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px var(--success-color);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .input-bar { flex-direction: column; }
+  .input-bar .year-input { flex: 1; }
+  h1 { font-size: 2.2rem; }
+}
